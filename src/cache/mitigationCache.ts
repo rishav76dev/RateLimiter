@@ -1,6 +1,6 @@
 import { MinHeap } from "../utils/minHeap.ts";
 
-export class MitigationCache {
+export default class MitigationCache {
     private blockedIPs = new Map<string, number>();
 
     private heap = new MinHeap();
