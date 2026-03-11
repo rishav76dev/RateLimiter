@@ -1,4 +1,4 @@
-export class TimeBucket {
+export default class TimeBucket {
 
     private readonly now: number
 
