@@ -15,7 +15,13 @@ export default class MitigationCache {
 
             const expired = this.heap.removeMin();
             if(expired){
-                this.blockedIPs.delete(expired.ip);
+                // Only delete from the map if the expiry matches.
+                // A mismatch means the IP was re-blocked with a newer expiry,
+                // so this is a stale heap entry that should just be discarded.
+                const currentExpiry = this.blockedIPs.get(expired.ip);
+                if(currentExpiry !== undefined && currentExpiry <= now){
+                    this.blockedIPs.delete(expired.ip);
+                }
             }
         }
 
